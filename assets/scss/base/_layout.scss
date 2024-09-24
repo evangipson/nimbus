@@ -1,0 +1,14 @@
+.nimbus {
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: var(--font);
+    color: var(--color-dark);
+    min-height: 100vh;
+
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+}

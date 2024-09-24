@@ -1,0 +1,70 @@
+.nimbus__navigation {
+    @include transition(top);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    min-width: 100%;
+    top: -40px;
+    font-family: var(--font-bold);
+    color: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent);
+    cursor: default;
+    user-select: none;
+    -webkit-app-region: drag;
+
+    &--active {
+        top: 0;
+    }
+
+    &-logo {
+        display: flex;
+        flex-flow: row nowrap;
+        column-gap: var(--gutter-small);
+        padding-left: var(--gutter);
+
+        p {
+            margin: 0;
+        }
+
+        svg {
+            width: 25px;
+            height: auto;
+        }
+    }
+
+    &-buttons {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    &-button {
+        @include transition(background-color, color);
+        display: flex;
+        align-items: center;
+        height: 35px;
+        width: 35px;
+        text-align: center;
+        -webkit-app-region: no-drag;
+
+        &:hover {
+            color: rgba(255, 255, 255, 0.8);
+            background-color: #ffffff22;
+        }
+
+        &--close:hover {
+            background-color: #ff000088;
+        }
+
+        svg {
+            display: flex;
+            fill: currentColor;
+            padding: var(--gutter-small) var(--gutter);
+            flex-basis: 100%;
+        }
+    }
+}

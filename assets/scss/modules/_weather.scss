@@ -1,0 +1,34 @@
+.nimbus__weather {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    column-gap: var(--gutter-large);
+    width: fit-content;
+    color: var(--color-light);
+    background-color: rgba(0, 0, 0, 0.12);
+    padding: 0 var(--gutter-large);
+    border-radius: 8px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25);
+
+    &-image {
+        display: flex;
+        min-width: 140px;
+        height: auto;
+        padding-left: var(--gutter-extra-large);
+    }
+
+    &-info {
+        font-size: var(--font-size-large);
+    }
+
+    &-video {
+        position: fixed;
+        object-fit: contain;
+        bottom: 0;
+        right: 0;
+        min-width: 100vw;
+        min-height: 100vh;
+        z-index: -1;
+        opacity: 0.35;
+    }
+}
