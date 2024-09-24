@@ -2,7 +2,10 @@
 A simple weather application built using Electron.
 
 # Development
-To run Nimbus, use `npm start`.
+- Run `npm install`
+- Install the "Live Sass Compiler" VSCode extension or run `npm install sass`
+- Build the SCSS
+- Run `npm start`
 
 # Roadmap
 - [x] Scaffold Electron base
@@ -16,3 +19,7 @@ To run Nimbus, use `npm start`.
 - [ ] Optimize front end
 - [ ] Create .NET API back end
 - [ ] Optimize back end
+
+# Bugs
+- "acrylic" background does not work on Windows 10
+- Certificate errors
