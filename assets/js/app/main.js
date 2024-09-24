@@ -29,7 +29,7 @@ const createElectronWindow = () => {
     mainWindow.setMinimumSize(350, 350);
     mainWindow.loadFile('../../../index.html');
     mainWindow.once('ready-to-show', mainWindow.show);
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 };
 
 Menu.setApplicationMenu(false);
