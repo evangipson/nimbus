@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, session } = require('electron');
 const path = require('node:path');
 
 const setupMenuEvents = (mainWindow) => {
@@ -29,6 +29,16 @@ const createElectronWindow = () => {
     mainWindow.setMinimumSize(350, 350);
     mainWindow.loadFile('../../../index.html');
     mainWindow.once('ready-to-show', mainWindow.show);
+    session.fromPartition("default").setPermissionRequestHandler((webContents, permission, callback) => {
+        let allowedPermissions = ["geolocation"];
+
+        if (allowedPermissions.includes(permission)) {
+            callback(true); // Approve permission request
+        } else {
+            console.error(`The application tried to request permission for '${permission}'. This permission was not whitelisted and has been blocked.`);
+            callback(false); // Deny
+        }
+    });
     mainWindow.webContents.openDevTools();
 };
 
@@ -36,6 +46,7 @@ Menu.setApplicationMenu(false);
 
 app.whenReady().then(() => {
     createElectronWindow();
+    app.commandLine.appendSwitch('enable-features', 'WinrtGeolocationImplementation');
     app.on('activate', () => !BrowserWindow.getAllWindows().length && createElectronWindow());
 });
 

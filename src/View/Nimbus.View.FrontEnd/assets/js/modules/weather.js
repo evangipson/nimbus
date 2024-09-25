@@ -6,7 +6,8 @@ import { getCurrentWeather } from '../api/weather.js';
  */
 export const init = () => {
 	const temperatureElement = document.querySelector('.nimbus__weather-temperature');
+
 	getCurrentWeather().then(weatherResponse => {
-		temperatureElement.textContent = `${weatherResponse.temperature}°`;
+		temperatureElement.textContent = `${weatherResponse.Temperature}${weatherResponse.TemperatureUnit}`;
 	});
 };

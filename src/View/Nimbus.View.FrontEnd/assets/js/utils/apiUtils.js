@@ -1,3 +1,7 @@
+const getNimbusApiEndpoint = () => {
+    return "https://localhost:7080";
+}
+
 /**
  * Will fake a server response time. Used in the case of
  * mocked responses.
@@ -13,9 +17,15 @@ const fakeServerResponseTime = async (timeToWait = 1500) => {
  * @param {String} urlToGet 
  * @returns the response or false
  */
-const get = async(urlToGet) => await fetch(urlToGet, { method: 'GET' })
-    .then(response => response)
-    .catch(() => false);
+const get = async(urlToGet) => {
+    var sanitizedUrl = urlToGet.charAt(0) === '/'
+        ? urlToGet.substring(1)
+        : urlToGet;
+
+    return await fetch(`${getNimbusApiEndpoint()}/${sanitizedUrl}`, { method: 'GET' })
+        .then(response => response)
+        .catch(() => false);
+}
 
 /**
  * Will `GET` a URL, and attempts to create JSON out
