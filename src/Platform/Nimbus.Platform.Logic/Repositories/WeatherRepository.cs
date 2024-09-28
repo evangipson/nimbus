@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Net.Http.Json;
-using System.Text.Json;
+﻿using System.Net.Http.Json;
 using System.Web;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
@@ -10,6 +8,7 @@ using Nimbus.Platform.Domain.Models;
 
 namespace Nimbus.Platform.Logic.Repositories
 {
+    /// <inheritdoc cref="IWeatherRepository"/>
     public class WeatherRepository(ILogger<WeatherRepository> logger, IHttpClientFactory httpClientFactory, IMapper mapper) : IWeatherRepository
     {
         private readonly ILogger<WeatherRepository> _logger = logger;
@@ -27,25 +26,17 @@ namespace Nimbus.Platform.Logic.Repositories
             "wind_direction_10m"
         ];
 
-        public async Task<string> GetWeatherResultAsync(double longitude, double latitude)
+        public async Task<Weather?> GetWeatherResultAsync(double longitude, double latitude)
         {
             var openMeteoEndpoint = GetOpenMeteoQueryEndpoint(longitude, latitude);
             var results = await TryQueryAsync(openMeteoEndpoint);
             if (results == null)
             {
                 _logger.LogError($"{nameof(GetWeatherResultAsync)}: Failed to get results from OpenMeteo endpoint \"{openMeteoEndpoint}\"");
-                return string.Empty;
+                return default;
             }
 
-            var mappedResults = _mapper.Map<OpenMeteoResponse, Weather>(results);
-            try
-            {
-                return JsonSerializer.Serialize(mappedResults);
-            }
-            catch
-            {
-                return string.Empty;
-            }
+            return _mapper.Map<OpenMeteoResponse, Weather>(results);
         }
 
         /// <summary>

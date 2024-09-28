@@ -13,13 +13,10 @@ namespace Nimbus.View.Api
         /// <param name="args">
         /// A list of string arguments for application initialization.
         /// </param>
-        internal static void Main(string[] args)
-        {
-            WebApplication.CreateBuilder(args)
-                .ConfigureBuilder()
-                .Build()
-                .ConfigureApplication()
-                .Run();
-        }
+        internal static void Main(string[] args) => WebApplication.CreateBuilder(args)
+            .ConfigureBuilder()
+            .Build()
+            .ConfigureApplication()
+            .Run();
     }
 }

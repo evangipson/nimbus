@@ -81,6 +81,7 @@ namespace Nimbus.View.Api.Extensions
             builder.Services
                 .AddAutoMapper(mapperConfig => mapperConfig.AddMaps(typeof(WeatherMappingProfile)))
                 .AddHttpContextAccessor()
+                .AddTransient<IIpAddressProvider, IpAddressProvider>()
                 .AddScoped<IGeolocationProvider, GeolocationProvider>()
                 .AddScoped<IEnvironmentService, EnvironmentService>()
                 .AddScoped<IWeatherRepository, WeatherRepository>()

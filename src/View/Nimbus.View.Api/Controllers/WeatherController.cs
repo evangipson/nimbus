@@ -1,17 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
 
+using Nimbus.Platform.Domain.Models;
 using Nimbus.Platform.Logic.Managers;
 
 namespace Nimbus.View.Api.Controllers
 {
     [ApiController]
     [Route("/weather")]
-    public class WeatherController(ILogger<WeatherController> logger, IWeatherManager weatherManager) : ControllerBase
+    public class WeatherController(IWeatherManager weatherManager) : ControllerBase
     {
-        private readonly ILogger<WeatherController> _logger = logger;
-        private readonly IWeatherManager _weatherManager = weatherManager;
-
+        /// <summary>
+        /// Gets the current local weather.
+        /// </summary>
+        /// <returns>
+        /// The current local weather.
+        /// </returns>
+        /// <remarks>
+        /// Sample api request:
+        /// 
+        /// GET
+        ///     /weather
+        ///
+        /// </remarks>
         [HttpGet]
-        public Task<string> GetCurrentWeather() => _weatherManager.GetCurrentWeatherAsync();
+        [Produces("application/json")]
+        public Task<Weather?> GetCurrentWeather() => weatherManager.GetCurrentWeatherAsync();
     }
 }
