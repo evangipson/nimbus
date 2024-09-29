@@ -1,6 +1,6 @@
 ﻿namespace Nimbus.Platform.Domain.Models
 {
-    public class Weather
+    public class WeatherForecast
     {
         public DateTime Date { get; set; }
 

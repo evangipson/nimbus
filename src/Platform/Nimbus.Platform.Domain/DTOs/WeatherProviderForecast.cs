@@ -2,7 +2,7 @@
 
 namespace Nimbus.Platform.Domain.DTOs
 {
-    public class OpenMeteoWeather
+    public class WeatherProviderForecast
     {
         [JsonPropertyName("time")]
         public DateTime Date { get; set; }

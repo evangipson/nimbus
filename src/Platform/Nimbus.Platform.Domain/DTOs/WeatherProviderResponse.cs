@@ -2,7 +2,7 @@
 
 namespace Nimbus.Platform.Domain.DTOs
 {
-    public class OpenMeteoResponse
+    public class WeatherProviderResponse
     {
         [JsonPropertyName("latitude")]
         public float Latitude { get; set; }
@@ -26,9 +26,9 @@ namespace Nimbus.Platform.Domain.DTOs
         public float Elevation { get; set; }
 
         [JsonPropertyName("current_units")]
-        public OpenMeteoWeatherUnits? CurrentWeatherUnits { get; set; }
+        public WeatherProviderUnits? CurrentWeatherUnits { get; set; }
 
         [JsonPropertyName("current")]
-        public OpenMeteoWeather? CurrentWeather { get; set; }
+        public WeatherProviderForecast? CurrentWeather { get; set; }
     }
 }

@@ -3,16 +3,16 @@
 namespace Nimbus.Platform.Logic.Managers
 {
     /// <summary>
-    /// A manager that is responsible for interacting with the <see cref="Weather"/>.
+    /// A manager that is responsible for interacting with a <see cref="WeatherForecast"/>.
     /// </summary>
     public interface IWeatherManager
     {
         /// <summary>
-        /// Gets the current <see cref="Weather"/>.
+        /// Gets the current <see cref="WeatherForecast"/>.
         /// </summary>
         /// <returns>
-        /// The current <see cref="Weather"/>.
+        /// The current <see cref="WeatherForecast"/>.
         /// </returns>
-        Task<Weather?> GetCurrentWeatherAsync();
+        Task<WeatherForecast> GetCurrentWeatherAsync();
     }
 }

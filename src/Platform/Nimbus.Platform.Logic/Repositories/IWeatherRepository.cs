@@ -3,13 +3,19 @@
 namespace Nimbus.Platform.Logic.Repositories
 {
     /// <summary>
-    /// A repository that performs units of work on <see cref="Weather"/>.
+    /// A repository that performs units of work on a <see cref="WeatherForecast"/>.
     /// </summary>
     public interface IWeatherRepository
     {
         /// <summary>
-        /// Queries the weather provider, and maps the result to <see cref="Weather"/>.
+        /// Queries the weather provider, and maps the result to a <see cref="WeatherForecast"/>.
+        /// <para>
+        /// Will throw an <see cref="InvalidOperationException"/> if the <see cref="WeatherForecast"/> is not retrieved.
+        /// </para>
         /// </summary>
+        /// <param name="weatherProviderUri">
+        /// The <see cref="Uri"/> of the weather provider.
+        /// </param>
         /// <param name="longitude">
         /// The longitude to get the weather for.
         /// </param>
@@ -17,8 +23,9 @@ namespace Nimbus.Platform.Logic.Repositories
         /// The latitude to tget the weather for.
         /// </param>
         /// <returns>
-        /// The current <see cref="Weather"/>.
+        /// The current <see cref="WeatherForecast"/>.
         /// </returns>
-        Task<Weather?> GetWeatherResultAsync(double longitude, double latitude);
+        /// <exception cref="InvalidOperationException"></exception>
+        Task<WeatherForecast> GetWeatherResultAsync(Uri weatherProviderUri, double longitude, double latitude);
     }
 }

@@ -24,6 +24,6 @@ namespace Nimbus.View.Api.Controllers
         /// </remarks>
         [HttpGet]
         [Produces("application/json")]
-        public Task<Weather?> GetCurrentWeather() => weatherManager.GetCurrentWeatherAsync();
+        public Task<WeatherForecast> GetCurrentWeather() => weatherManager.GetCurrentWeatherAsync();
     }
 }

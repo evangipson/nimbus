@@ -2,7 +2,7 @@
 
 namespace Nimbus.Platform.Domain.DTOs
 {
-    public class OpenMeteoWeatherUnits
+    public class WeatherProviderUnits
     {
         [JsonPropertyName("time")]
         public string? DateUnit { get; set; }

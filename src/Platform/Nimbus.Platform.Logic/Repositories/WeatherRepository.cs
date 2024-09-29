@@ -12,7 +12,7 @@ namespace Nimbus.Platform.Logic.Repositories
     public class WeatherRepository(ILogger<WeatherRepository> logger, IHttpClientFactory httpClientFactory, IMapper mapper) : IWeatherRepository
     {
         private readonly ILogger<WeatherRepository> _logger = logger;
-        private readonly HttpClient _httpClient = httpClientFactory.CreateClient("OpenMeteoClient");
+        private readonly HttpClient _httpClient = httpClientFactory.CreateClient("WeatherProviderClient");
         private readonly IMapper _mapper = mapper;
 
         private static readonly List<string> _weatherResponseFields =
@@ -26,23 +26,25 @@ namespace Nimbus.Platform.Logic.Repositories
             "wind_direction_10m"
         ];
 
-        public async Task<Weather?> GetWeatherResultAsync(double longitude, double latitude)
+        public async Task<WeatherForecast> GetWeatherResultAsync(Uri weatherProviderUri, double longitude, double latitude)
         {
-            var openMeteoEndpoint = GetOpenMeteoQueryEndpoint(longitude, latitude);
-            var results = await TryQueryAsync(openMeteoEndpoint);
+            var weatherProviderEndpoint = GetWeatherProviderQueryEndpoint(weatherProviderUri, longitude, latitude);
+            var results = await TryQueryAsync(weatherProviderEndpoint);
             if (results == null)
             {
-                _logger.LogError($"{nameof(GetWeatherResultAsync)}: Failed to get results from OpenMeteo endpoint \"{openMeteoEndpoint}\"");
-                return default;
+                throw new InvalidOperationException($"{nameof(GetWeatherResultAsync)}: Failed to get results from the weather provider endpoint: {weatherProviderEndpoint}");
             }
 
-            return _mapper.Map<OpenMeteoResponse, Weather>(results);
+            return _mapper.Map<WeatherProviderResponse, WeatherForecast>(results);
         }
 
         /// <summary>
-        /// Gets an OpenMeteo query endpoint with the provided <paramref name="longitude"/> and <paramref name="latitude"/>
+        /// Gets a query endpoint with the provided <paramref name="longitude"/> and <paramref name="latitude"/>
         /// attached as query strings.
         /// </summary>
+        /// <param name="weatherProviderUri">
+        /// The <see cref="Uri"/> of the weather provider.
+        /// </param>
         /// <param name="longitude">
         /// The longitude to retrieve the weather information for.
         /// </param>
@@ -52,34 +54,34 @@ namespace Nimbus.Platform.Logic.Repositories
         /// <returns>
         /// A <see cref="Uri"/> containing the <paramref name="longitude"/> and <paramref name="latitude"/>.
         /// </returns>
-        private static Uri GetOpenMeteoQueryEndpoint(double longitude, double latitude)
+        private static Uri GetWeatherProviderQueryEndpoint(Uri weatherProviderUri, double longitude, double latitude)
         {
-            var openMeteoUriBuilder = new UriBuilder("https://api.open-meteo.com/v1/forecast");
-            var openMeteoQueryBuilder = HttpUtility.ParseQueryString(openMeteoUriBuilder.Query);
-            openMeteoQueryBuilder["longitude"] = longitude.ToString();
-            openMeteoQueryBuilder["latitude"] = latitude.ToString();
-            openMeteoQueryBuilder["current"] = string.Join(",", _weatherResponseFields);
-            openMeteoQueryBuilder["forecast_days"] = "1";
-            openMeteoUriBuilder.Query = openMeteoQueryBuilder.ToString();
+            var weatherProviderUriBuilder = new UriBuilder(weatherProviderUri);
+            var weatherProviderQueryBuilder = HttpUtility.ParseQueryString(weatherProviderUriBuilder.Query);
+            weatherProviderQueryBuilder["longitude"] = longitude.ToString();
+            weatherProviderQueryBuilder["latitude"] = latitude.ToString();
+            weatherProviderQueryBuilder["current"] = string.Join(",", _weatherResponseFields);
+            weatherProviderQueryBuilder["forecast_days"] = "1";
+            weatherProviderUriBuilder.Query = weatherProviderQueryBuilder.ToString();
 
-            return openMeteoUriBuilder.Uri;
+            return weatherProviderUriBuilder.Uri;
         }
 
         /// <summary>
-        /// Tries to query OpenMeteo using the provided <paramref name="openMeteoEndpoint"/>.
+        /// Tries to query the weather provider using the provided <paramref name="weatherProviderEndpoint"/>.
         /// </summary>
-        /// <param name="openMeteoEndpoint">
-        /// The endpoint to run an OpenMeteo query on.
+        /// <param name="weatherProviderEndpoint">
+        /// The endpoint to run a weather query against.
         /// </param>
         /// <returns>
-        /// An <see cref="OpenMeteoResponse"/>.
+        /// An <see cref="WeatherProviderResponse"/>.
         /// </returns>
-        private async Task<OpenMeteoResponse?> TryQueryAsync(Uri openMeteoEndpoint)
+        private async Task<WeatherProviderResponse?> TryQueryAsync(Uri weatherProviderEndpoint)
         {
             try
             {
-                var results = await _httpClient.GetAsync(openMeteoEndpoint);
-                return await results.Content.ReadFromJsonAsync<OpenMeteoResponse>();
+                var results = await _httpClient.GetAsync(weatherProviderEndpoint);
+                return await results.Content.ReadFromJsonAsync<WeatherProviderResponse>();
             }
             catch
             {

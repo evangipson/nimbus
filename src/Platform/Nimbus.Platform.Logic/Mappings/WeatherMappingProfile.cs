@@ -9,7 +9,7 @@ namespace Nimbus.Platform.Logic.Mappings
     {
         public WeatherMappingProfile()
         {
-            _ = CreateMap<OpenMeteoResponse, Weather>()
+            _ = CreateMap<WeatherProviderResponse, WeatherForecast>()
                .ForMember(dest => dest.Date, opts => opts.MapFrom(src => src.CurrentWeather!.Date))
                .ForMember(dest => dest.DateUnit, opts => opts.MapFrom(src => src.CurrentWeatherUnits!.DateUnit))
                .ForMember(dest => dest.IsDay, opts => opts.MapFrom(src => src.CurrentWeather!.IsDay == 1))

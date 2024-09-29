@@ -9,10 +9,15 @@ namespace Nimbus.Platform.Logic.Providers
     {
         /// <summary>
         /// Gets the current <see cref="Geolocation"/>.
+        /// <para>
+        /// Will throw an <see cref="InvalidOperationException"/> if the <see cref="Geolocation"/>
+        /// can not be found.
+        /// </para>
         /// </summary>
         /// <returns>
         /// The current <see cref="Geolocation"/>.
         /// </returns>
-        Geolocation? GetCurrentLocation();
+        /// <exception cref="InvalidOperationException"></exception>
+        Geolocation GetCurrentLocation();
     }
 }
