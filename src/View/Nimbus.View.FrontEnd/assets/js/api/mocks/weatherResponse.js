@@ -1,33 +1,51 @@
 /**
- * Gets a mocked response for the current weather.
- * @param {string} time 
+ * Gets a mocked weather forecast api response.
+ * @param {string} date 
  * @param {number} temperature 
- * @param {number} relative_humidity 
- * @param {number} is_day 
- * @param {number} precipitation 
- * @param {number} cloud_cover 
- * @param {number} wind_speed 
- * @param {number} wind_direction 
- * @returns {Object} a mocked weather response.
+ * @param {string} temperatureUnit 
+ * @param {number} humidity 
+ * @param {string} humidityUnit 
+ * @param {boolean} isDay 
+ * @param {number} precipitationChance 
+ * @param {string} precipitationUnit 
+ * @param {number} cloudCover 
+ * @param {string} cloudCoverUnit 
+ * @param {number} windSpeed 
+ * @param {string} windSpeedUnit 
+ * @param {number} windDirection 
+ * @param {string} windDirectionUnit 
+ * @returns {object} a mocked api weather forecast response.
  */
 export const getMockedWeatherResponse = (
-    time = '2024-01-01T00:00',
+    date = '2024-01-01T00:00',
     temperature = 50,
-    relative_humidity = 10,
-    is_day = true,
-    precipitation = 0.0,
-    cloud_cover = 40,
-    wind_speed = 10,
-    wind_direction = 180,
+    temperatureUnit = '°',
+    humidity = 10,
+    humidityUnit = '%',
+    isDay = true,
+    precipitationChance = 0.8,
+    precipitationUnit = 'mm',
+    cloudCover = 80,
+    cloudCoverUnit = '%',
+    windSpeed = 10,
+    windSpeedUnit = 'km/h',
+    windDirection = 180,
+    windDirectionUnit = '°',
 ) => {
     return {
-        time,
+        date,
         temperature,
-        relative_humidity,
-        is_day,
-        precipitation,
-        cloud_cover,
-        wind_speed,
-        wind_direction,
+        temperatureUnit,
+        humidity,
+        humidityUnit,
+        isDay,
+        precipitationChance,
+        precipitationUnit,
+        cloudCover,
+        cloudCoverUnit,
+        windSpeed,
+        windSpeedUnit,
+        windDirection,
+        windDirectionUnit,
     };
 };

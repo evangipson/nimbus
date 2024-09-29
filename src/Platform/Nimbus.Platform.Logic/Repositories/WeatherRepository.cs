@@ -62,6 +62,9 @@ namespace Nimbus.Platform.Logic.Repositories
             weatherProviderQueryBuilder["latitude"] = latitude.ToString();
             weatherProviderQueryBuilder["current"] = string.Join(",", _weatherResponseFields);
             weatherProviderQueryBuilder["forecast_days"] = "1";
+            weatherProviderQueryBuilder["temperature_unit"] = "fahrenheit";
+            weatherProviderQueryBuilder["wind_speed_unit"] = "mph";
+            weatherProviderQueryBuilder["precipitation_unit"] = "inch";
             weatherProviderUriBuilder.Query = weatherProviderQueryBuilder.ToString();
 
             return weatherProviderUriBuilder.Uri;

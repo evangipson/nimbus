@@ -10,15 +10,43 @@
     border-radius: 8px;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25);
 
-    &-image {
-        display: flex;
-        min-width: 140px;
-        height: auto;
-        padding-left: var(--gutter-extra-large);
-    }
-
+    &-icon,
     &-info {
         font-size: var(--font-size-large);
+    }
+
+    &-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 80px;
+        width: 160px;
+        margin-left: var(--gutter-extra-large);
+    }
+
+    &-icon {
+        display: block;
+        position: absolute;
+        top: 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+
+        &[data-layer="sky"] {
+            z-index: 0;
+            margin-left: 8px;
+        }
+
+        &[data-layer="wind"] {
+            top: 32px;
+            right: 0;
+            z-index: 1;
+        }
+
+        &[data-layer="cloud"] {
+            font-size: var(--font-size-extra-large);
+            top: 32px;
+            z-index: 2;
+        }
     }
 
     &-video {

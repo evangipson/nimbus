@@ -1,5 +1,5 @@
 # Nimbus
-A simple weather application built using Electron.
+A beautiful weather application using a .NET 8 api back end and an Electron front end.
 
 # Development
 - Run `npm install`
@@ -13,13 +13,14 @@ A simple weather application built using Electron.
 - [x] Convert CSS to SCSS
 - [x] Modularize JavaScript
 - [x] Create mock API layer
-- [ ] Get more video assets
+- [x] Create .NET API back end
+- [x] Dynamically generate weather icon
 - [ ] Add more information to the UI (wind speed, humidity, etc.)
+- [ ] Get more video assets
 - [ ] Make application responsive to current weather via API
 - [ ] Optimize front end
-- [ ] Create .NET API back end
 - [ ] Optimize back end
 
 # Bugs
-- "acrylic" background does not work on Windows 10
-- Certificate errors
+- [ ] "acrylic" background does not work on Windows 10
+- [ ] Certificate errors in local Electron
